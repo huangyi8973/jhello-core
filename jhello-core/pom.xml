@@ -3,9 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.jhello</groupId>
   <artifactId>jhello-core</artifactId>
-  <packaging>war</packaging>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>jhello-core Maven Webapp</name>
+  <name>jhello-core</name>
   <url>http://maven.apache.org</url>
   <dependencies>
 	   <dependency>
@@ -52,4 +50,5 @@
   <build>
     <finalName>jhello-core</finalName>
   </build>
+  <version>0.1</version>
 </project>
