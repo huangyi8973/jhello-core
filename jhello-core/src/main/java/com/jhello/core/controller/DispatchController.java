@@ -16,6 +16,7 @@ import com.jhello.core.action.ActionMapper;
 import com.jhello.core.aspect.AdviceMapper;
 import com.jhello.core.config.AbstractConfig;
 import com.jhello.core.config.ConfigConst;
+import com.jhello.core.config.DefaultConfig;
 import com.jhello.core.config.JHelloConfig;
 import com.jhello.core.db.DataSourceHolder;
 import com.jhello.core.db.datasource.HelloDataSourceProvider;
@@ -44,6 +45,8 @@ public class DispatchController extends HttpServlet {
 		if(!StringUtils.isEmpty(configClassName)){
 			AbstractConfig config = (AbstractConfig) Thread.currentThread().getContextClassLoader().loadClass(configClassName).newInstance();
 			JHelloConfig.getInstance().setConfig(config);
+		}else{
+			JHelloConfig.getInstance().setConfig(new DefaultConfig());
 		}
 	}
 	private void initDatabaseInfo() throws Exception {
