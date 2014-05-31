@@ -2,8 +2,8 @@ package com.jhello.core.config;
 
 public class ConfigConst {
 
-	public final static String WEB_ACTION_SCAN_PACKAGE = "web.action_scan_package";
-	public final static String WEB_ASPECT_SCAN_PACKAGE = "web.aspect_scan_package";
+	public final static String WEB_ACTION_SCAN_PACKAGE = "web.action_scan_packages";
+	public final static String WEB_ASPECT_SCAN_PACKAGE = "web.aspect_scan_packages";
 	
 	//db config const
 	public final static String DB_DRIVER = "db.driver";

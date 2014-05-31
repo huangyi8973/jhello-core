@@ -48,7 +48,7 @@ public class HelloDataSource implements javax.sql.DataSource {
 
 	static{
 		try {
-			Class.forName(JHelloConfig.getConfigValue(ConfigConst.DB_DRIVER));
+			Class.forName(JHelloConfig.getInstance().getConfigValue(ConfigConst.DB_DRIVER));
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException(e);
 		}
@@ -66,11 +66,11 @@ public class HelloDataSource implements javax.sql.DataSource {
 	private void initConfig() throws ClassNotFoundException {
 		//从dbconfig中获取数据
 		//获取连接池初始化最小连接数
-		String initConnection=JHelloConfig.getConfigValue(ConfigConst.DB_INIT_CONNECTION);
+		String initConnection=JHelloConfig.getInstance().getConfigValue(ConfigConst.DB_INIT_CONNECTION);
 		INIT_CONNECTION=initConnection==null ? INIT_CONNECTION : Integer.parseInt(initConnection);
 		logger.debug("数据库初始连接限制 : "+initConnection);
 		//获取连接池最大连接数
-		String maxConnection=JHelloConfig.getConfigValue(ConfigConst.DB_MAX_CONNECTION);
+		String maxConnection=JHelloConfig.getInstance().getConfigValue(ConfigConst.DB_MAX_CONNECTION);
 		MAX_CONNECTION=maxConnection==null ? MAX_CONNECTION : Integer.parseInt(maxConnection);
 		logger.debug("数据库最大连接限制 : "+maxConnection);
 	}
@@ -150,9 +150,9 @@ public class HelloDataSource implements javax.sql.DataSource {
 	 * @date 2013-5-25 下午8:26:22
 	 */
 	private Connection createConnection() throws SQLException {
-		String dbUrl=JHelloConfig.getConfigValue(ConfigConst.DB_URL);
-		String dbUserName=JHelloConfig.getConfigValue(ConfigConst.DB_USERNAME);
-		String dbPassword=JHelloConfig.getConfigValue(ConfigConst.DB_PASSWORD);
+		String dbUrl=JHelloConfig.getInstance().getConfigValue(ConfigConst.DB_URL);
+		String dbUserName=JHelloConfig.getInstance().getConfigValue(ConfigConst.DB_USERNAME);
+		String dbPassword=JHelloConfig.getInstance().getConfigValue(ConfigConst.DB_PASSWORD);
 		Connection conn = DriverManager.getConnection(dbUrl, dbUserName, dbPassword);
 		//创建connection代理，如果用户直接close，可以使用free方法释放，防止用户自己关闭连接
 		ConnectionHandle connProxy=new ConnectionHandle();
@@ -251,7 +251,7 @@ public class HelloDataSource implements javax.sql.DataSource {
 	
 	public Connection getConnection(String username, String password)
 			throws SQLException {
-		String dbUrl=JHelloConfig.getConfigValue(ConfigConst.DB_URL);
+		String dbUrl=JHelloConfig.getInstance().getConfigValue(ConfigConst.DB_URL);
 		Connection conn = DriverManager.getConnection(dbUrl, username, password);
 		//创建connection代理，如果用户直接close，可以使用free方法释放，防止用户自己关闭连接
 		ConnectionHandle connProxy=new ConnectionHandle();

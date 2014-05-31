@@ -17,6 +17,8 @@ import java.util.Map;
 
 
 
+
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,7 +38,7 @@ public final class ActionMapper {
 	/**
 	 * controller包扫描路径
 	 */
-	private String _scanPackagePath = JHelloConfig.getActionScanPackage();
+	private String _scanPackagePath = JHelloConfig.getInstance().getActionScanPackage();
 	
 	
 	public String getScanPackagePath() {
@@ -60,20 +62,25 @@ public final class ActionMapper {
 		logger.debug("url映射初始化开始");
 		long start = System.currentTimeMillis();
 		String packagePath = getScanPackagePath().replace('.', File.separatorChar);
-		Enumeration<URL> urls = Thread.currentThread().getContextClassLoader().getResources(packagePath);
-		while(urls.hasMoreElements()){
-			URL url = urls.nextElement();
-			String filePath = URLDecoder.decode(url.getFile(), "UTF-8");
-			addClassToMapper(filePath);
+		if(packagePath != null){
+			String[] packagePathAry = packagePath.split(",");
+			for(String path : packagePathAry){
+				Enumeration<URL> urls = Thread.currentThread().getContextClassLoader().getResources(path);
+				while(urls.hasMoreElements()){
+					URL url = urls.nextElement();
+					String filePath = URLDecoder.decode(url.getFile(), "UTF-8");
+					addClassToMapper(filePath,path);
+				}
+			}
+			logger.debug(String.format("url映射初始化结束,耗时:%dms",+System.currentTimeMillis() - start));
 		}
-		logger.debug(String.format("url映射初始化结束,耗时:%dms",+System.currentTimeMillis() - start));
 	}
 	
 	public String getActionInfoStr(String httpMethodAndUrl){
 		return this._mapper.get(httpMethodAndUrl);
 	}
 	
-	private void addClassToMapper(String filePath) throws ClassNotFoundException{
+	private void addClassToMapper(String filePath, String packagePath) throws ClassNotFoundException{
 		File dir = new File(filePath);
 		if(!dir.exists() && !dir.isDirectory()){
 			return;
@@ -90,9 +97,9 @@ public final class ActionMapper {
 			for(File file : files){
 				if(file.isDirectory()){
 					//递归查找所有目录
-					addClassToMapper(file.getAbsolutePath());
+					addClassToMapper(file.getAbsolutePath(),packagePath);
 				}else{
-					Mapping(file);
+					Mapping(file,packagePath);
 				}
 			}
 		}
@@ -101,10 +108,11 @@ public final class ActionMapper {
 	/**
 	 * 映射
 	 * @param file
+	 * @param filePath 
 	 * @throws ClassNotFoundException
 	 */
-	private void Mapping(File file) throws ClassNotFoundException {
-		String rootPath = getScanPackagePath().replace('.', File.separatorChar);
+	private void Mapping(File file, String packagePath) throws ClassNotFoundException {
+		String rootPath = packagePath.replace('.', File.separatorChar);
 		//获取类
 		String className = file.getAbsolutePath().substring(file.getAbsolutePath().indexOf(rootPath)).replace(File.separatorChar, '.');
 		//去掉.class

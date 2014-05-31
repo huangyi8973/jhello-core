@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import com.jhello.core.action.ActionMapper;
 import com.jhello.core.aspect.AdviceMapper;
+import com.jhello.core.config.AbstractConfig;
 import com.jhello.core.config.ConfigConst;
 import com.jhello.core.config.JHelloConfig;
 import com.jhello.core.db.DataSourceHolder;
@@ -30,6 +31,7 @@ public class DispatchController extends HttpServlet {
 	@Override
 	public void init() throws ServletException {
 		try {
+			initConfig();
 			initHandlesMapper();
 			initAspectMapper();
 			initDatabaseInfo();
@@ -37,10 +39,17 @@ public class DispatchController extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
+	private void initConfig() throws Exception {
+		String configClassName = this.getInitParameter("config");
+		if(!StringUtils.isEmpty(configClassName)){
+			AbstractConfig config = (AbstractConfig) Thread.currentThread().getContextClassLoader().loadClass(configClassName).newInstance();
+			JHelloConfig.getInstance().setConfig(config);
+		}
+	}
 	private void initDatabaseInfo() throws Exception {
 		logger.info("init database info");
 		long start = System.currentTimeMillis();
-		String providerName = JHelloConfig.getConfigValue(ConfigConst.DB_DATASOURCE_PROVIDER);
+		String providerName = JHelloConfig.getInstance().getConfigValue(ConfigConst.DB_DATASOURCE_PROVIDER);
 		if(!StringUtils.isEmpty(providerName)){
 			IDataSourceProvider provider = (IDataSourceProvider) Thread.currentThread().getContextClassLoader().loadClass(providerName).newInstance();
 			DataSourceHolder.setDataSource(provider.getDataSource());
@@ -79,7 +88,7 @@ public class DispatchController extends HttpServlet {
 	 */
 	private Handler prepareHandleChain(HttpServletRequest req, HttpServletResponse resp) 
 			throws NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		Class<?>[] handleCls =JHelloConfig.getHandles();
+		Class<?>[] handleCls =JHelloConfig.getInstance().getHandles();
 		Handler firstHandle = null;
 		if(!Utils.isEmplyOrNull(handleCls)){
 			Handler lastHandle = null;

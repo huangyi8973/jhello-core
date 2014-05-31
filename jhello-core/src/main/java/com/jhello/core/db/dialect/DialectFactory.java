@@ -21,7 +21,7 @@ public abstract class DialectFactory {
 	}
 	
 	private static IDialect createDialect(){
-		String dialect = JHelloConfig.getConfigValue(ConfigConst.DB_DIALECT);
+		String dialect = JHelloConfig.getInstance().getConfigValue(ConfigConst.DB_DIALECT);
 		if(!StringUtils.isEmpty(dialect)){
 			if("mysql".equals(dialect.toLowerCase())){
 				return new MySqlDialect();
