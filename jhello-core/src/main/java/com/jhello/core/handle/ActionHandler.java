@@ -70,24 +70,26 @@ public class ActionHandler extends Handler {
 			prepareAdvice();
 			//调用before方法
 			executeBeforeAdvice(action);
-			//调用action
-			Object result = new ActionInvoker(action).invoke();
-			//调用after方法
-			executeAfterAdvice(action);
-			if(result != null){
-				if(result instanceof ModelAndView){
-					//返回视图
-					ModelAndView mv = (ModelAndView) result;
-					ViewRender render = ViewRenderFactory.getInstance().createViewRender(mv.getView());
-					render.setRequest(this.getRequest());
-					render.setResponse(this.getResponse());
-					render.render(mv.getView(),mv.getModel());
-				}else{
-					//不是返回ModelAndView的，全部看成是返回json
-					ViewRender render = new JsonViewRender(this.getRequest(),this.getResponse());
-					Model model = new Model();
-					model.put(JsonView.JSON_KEY, result);
-					render.render(null, model);
+			if(!this.getResponse().isCommitted()){
+				//调用action
+				Object result = new ActionInvoker(action).invoke();
+				//调用after方法
+				executeAfterAdvice(action);
+				if(result != null){
+					if(result instanceof ModelAndView){
+						//返回视图
+						ModelAndView mv = (ModelAndView) result;
+						ViewRender render = ViewRenderFactory.getInstance().createViewRender(mv.getView());
+						render.setRequest(this.getRequest());
+						render.setResponse(this.getResponse());
+						render.render(mv.getView(),mv.getModel());
+					}else{
+						//不是返回ModelAndView的，全部看成是返回json
+						ViewRender render = new JsonViewRender(this.getRequest(),this.getResponse());
+						Model model = new Model();
+						model.put(JsonView.JSON_KEY, result);
+						render.render(null, model);
+					}
 				}
 			}
 		}else{

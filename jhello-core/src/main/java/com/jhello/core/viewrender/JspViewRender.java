@@ -36,6 +36,7 @@ public class JspViewRender extends ViewRender {
 		}
 		
 		dispatcher.forward(this.getRequest(), this.getResponse());
+		return ;
 	}
 
 }
