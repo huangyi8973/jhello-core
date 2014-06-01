@@ -1,8 +1,5 @@
 package com.jhello.core.handle;
 
-import java.io.OutputStream;
-import java.io.PrintWriter;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 

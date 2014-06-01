@@ -27,6 +27,7 @@ import com.jhello.core.utils.Utils;
 
 public class DispatchController extends HttpServlet {
 	
+	private static final long serialVersionUID = 4428396294031016364L;
 	private final static Logger logger = LoggerFactory.getLogger(DispatchController.class);
 	
 	@Override

@@ -23,7 +23,7 @@ public class ParamPrepareHandler extends Handler {
 		//参数封装
 		Params params =  prepareParams();
 		
-		this.getRequest().setAttribute("ctx", ctx);
+		this.getRequest().setAttribute(Params.CONTEXT_PATH, ctx);
 		this.getRequest().setAttribute("params", params);
 		this.nextHandle();
 	}

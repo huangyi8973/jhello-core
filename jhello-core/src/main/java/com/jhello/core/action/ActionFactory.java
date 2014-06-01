@@ -2,9 +2,6 @@ package com.jhello.core.action;
 
 import java.lang.reflect.Method;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.jhello.core.pub.HttpMethod;
 
 public final class ActionFactory {

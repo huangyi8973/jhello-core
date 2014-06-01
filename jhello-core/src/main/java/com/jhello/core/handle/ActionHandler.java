@@ -20,6 +20,8 @@ import com.jhello.core.aspect.AbstractAdvice;
 import com.jhello.core.aspect.AdviceFactory;
 import com.jhello.core.aspect.AdviceMapper;
 import com.jhello.core.aspect.Pointcut;
+import com.jhello.core.controller.cmd.CmdFactory;
+import com.jhello.core.controller.cmd.IControllerCmd;
 import com.jhello.core.model.Model;
 import com.jhello.core.modelview.ModelAndView;
 import com.jhello.core.utils.Utils;
@@ -70,11 +72,22 @@ public class ActionHandler extends Handler {
 			prepareAdvice();
 			//调用before方法
 			executeBeforeAdvice(action);
+			//response没有提交，比如执行sendRedirect之类的
 			if(!this.getResponse().isCommitted()){
 				//调用action
 				Object result = new ActionInvoker(action).invoke();
 				//调用after方法
 				executeAfterAdvice(action);
+				//判断是否有可能包含命令
+				if(result instanceof String && ((String) result).contains(":")){
+					String strResult = (String) result;
+					//命令格式是cmd:arg
+					int argBeginIndex = strResult.indexOf(":");
+					String cmdName = strResult.substring(0,argBeginIndex);
+					String cmdArg = strResult.substring(argBeginIndex+1);
+					IControllerCmd cmd = CmdFactory.createCmd(cmdName, cmdArg, (Params)this.getRequest().getAttribute("params"));
+					result = cmd.execute();
+				}
 				if(result != null){
 					if(result instanceof ModelAndView){
 						//返回视图

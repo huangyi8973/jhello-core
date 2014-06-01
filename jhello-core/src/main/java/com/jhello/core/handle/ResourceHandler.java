@@ -74,6 +74,7 @@ public class ResourceHandler extends Handler {
 		while((byteRead = in.read(buffer)) != -1){
 			out.write(buffer, 0, byteRead);
 		}
+		in.close();
 		out.flush();
 	}
 
