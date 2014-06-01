@@ -1,5 +1,7 @@
 package com.jhello.core.config;
 
+import com.jhello.core.view.ViewType;
+
 public class JHelloConfig{
 	
 	private AbstractConfig config;
@@ -60,5 +62,7 @@ public class JHelloConfig{
 		this.config = config;
 	}
 	
-	
+	public ViewType getDefaultViewType(){
+		return this.config.getDefaultViewType();
+	}
 }

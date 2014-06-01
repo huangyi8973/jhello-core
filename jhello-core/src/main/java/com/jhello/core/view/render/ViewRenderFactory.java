@@ -1,4 +1,4 @@
-package com.jhello.core.viewrender;
+package com.jhello.core.view.render;
 
 import com.jhello.core.view.JsonView;
 import com.jhello.core.view.JspView;

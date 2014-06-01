@@ -1,4 +1,4 @@
-package com.jhello.core.viewrender;
+package com.jhello.core.view.render;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

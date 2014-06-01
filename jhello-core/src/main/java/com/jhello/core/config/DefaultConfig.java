@@ -8,6 +8,7 @@ import com.jhello.core.handle.ActionHandler;
 import com.jhello.core.handle.ExceptionHandler;
 import com.jhello.core.handle.ParamPrepareHandler;
 import com.jhello.core.handle.ResourceHandler;
+import com.jhello.core.view.ViewType;
 
 public class DefaultConfig extends AbstractConfig {
 
@@ -39,5 +40,10 @@ public class DefaultConfig extends AbstractConfig {
 				ActionHandler.class,
 				ResourceHandler.class
 		};
+	}
+	
+	@Override
+	public ViewType getDefaultViewType() {
+		return ViewType.JSP;
 	}
 }

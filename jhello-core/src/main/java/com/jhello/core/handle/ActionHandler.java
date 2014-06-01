@@ -26,9 +26,9 @@ import com.jhello.core.model.Model;
 import com.jhello.core.modelview.ModelAndView;
 import com.jhello.core.utils.Utils;
 import com.jhello.core.view.JsonView;
-import com.jhello.core.viewrender.JsonViewRender;
-import com.jhello.core.viewrender.ViewRender;
-import com.jhello.core.viewrender.ViewRenderFactory;
+import com.jhello.core.view.render.JsonViewRender;
+import com.jhello.core.view.render.ViewRender;
+import com.jhello.core.view.render.ViewRenderFactory;
 
 /**
  * Action处理器

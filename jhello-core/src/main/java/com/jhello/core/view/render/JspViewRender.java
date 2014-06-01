@@ -1,4 +1,4 @@
-package com.jhello.core.viewrender;
+package com.jhello.core.view.render;
 
 import java.util.Map.Entry;
 
