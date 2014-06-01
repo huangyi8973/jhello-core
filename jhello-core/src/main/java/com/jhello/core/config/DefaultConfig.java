@@ -8,6 +8,7 @@ import com.jhello.core.handle.ActionHandler;
 import com.jhello.core.handle.ExceptionHandler;
 import com.jhello.core.handle.ParamPrepareHandler;
 import com.jhello.core.handle.ResourceHandler;
+import com.jhello.core.utils.StringUtils;
 import com.jhello.core.view.ViewType;
 
 public class DefaultConfig extends AbstractConfig {
@@ -44,6 +45,11 @@ public class DefaultConfig extends AbstractConfig {
 	
 	@Override
 	public ViewType getDefaultViewType() {
-		return ViewType.JSP;
+		String defaultViewType = (String) this.configProperties.get(ConfigConst.WEB_DEFAULT_VIEW_TYPE);
+		if(StringUtils.isEmpty(defaultViewType)){
+			return ViewType.JSP;
+		}else{
+			return Enum.valueOf(ViewType.class, defaultViewType);
+		}
 	}
 }
