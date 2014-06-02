@@ -1,12 +1,14 @@
 package com.jhello.core.vo;
 
+import java.io.Serializable;
+
 /**
  * VO接口
  * @version V5.0
  * @author huangy
  * @date   2012-11-15
  */
-public interface IBaseVO {
+public interface IBaseVO extends Serializable {
 	/**
 	 * 获得表名称
 	 * @return

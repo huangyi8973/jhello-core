@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.jhello.core.db.convert.ConvertUtils;
 import com.jhello.core.db.result.ColumnListResultProcessor;
 import com.jhello.core.db.result.VOListResultProcessor;
 import com.jhello.core.vo.IBaseVO;
@@ -64,25 +65,36 @@ public class VODao extends BaseDao {
 	 * @throws InstantiationException 
 	 * @date 2013-4-12 下午5:50:48
 	 */
-	public int insertVo(IBaseVO vo) throws SQLException, InstantiationException, IllegalAccessException{
+	public Object insertVo(IBaseVO vo) throws SQLException, InstantiationException, IllegalAccessException{
 		String[] availableFields=getAvailableFields(vo.getClass());
+		Object primaryKey = null;
 		//给VO赋予主键
 		if(PrimaryKeyStrategy.GENERATE.equals(vo.getPrimaryKeyStrategy())){
 			//使用内置的主键生成器
-			VOUtils.setValue(vo,vo.getPrimaryKey(), PrimaryKeyGenerater.generaterKey());
+			primaryKey = PrimaryKeyGenerater.generaterKey();
+			VOUtils.setValue(vo,vo.getPrimaryKey(), primaryKey);
+			String sql=SqlHelper.getInsertSql(vo.getTableName(),availableFields);
+			//创建参数
+			SqlParameter par=new SqlParameter();
+			for(String field : availableFields){
+				par.addObject(ConvertUtils.convertToDb(VOUtils.getValue(vo,field)));
+			}
+			this.execUpdate(sql, par);
+			return primaryKey;
 		}else if(PrimaryKeyStrategy.AUTO_INCREMENT.equals(vo.getPrimaryKeyStrategy())){
 			//使用数据库自动增长，不插入主键即可
 			List<String> fields = new LinkedList<String>(Arrays.asList(availableFields));
 			fields.remove(vo.getPrimaryKey());
 			availableFields = fields.toArray(new String[0]);
+			String sql=SqlHelper.getInsertSql(vo.getTableName(),availableFields);
+			//创建参数
+			SqlParameter par=new SqlParameter();
+			for(String field : availableFields){
+				par.addObject(ConvertUtils.convertToDb(VOUtils.getValue(vo,field)));
+			}
+			return this.execInsertByAutoInCrementKey(sql, par);
 		}
-		String sql=SqlHelper.getInsertSql(vo.getTableName(),availableFields);
-		//创建参数
-		SqlParameter par=new SqlParameter();
-		for(String field : availableFields){
-			par.addObject(VOUtils.getValue(vo,field));
-		}
-		return this.execUpdate(sql, par)[0];
+		return 0;
 	}
 
 	/**

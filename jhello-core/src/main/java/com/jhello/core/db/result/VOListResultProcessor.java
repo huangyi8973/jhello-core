@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jhello.core.db.convert.ConvertUtils;
 import com.jhello.core.vo.IBaseVO;
 import com.jhello.core.vo.VOUtils;
 
@@ -27,7 +28,7 @@ public class VOListResultProcessor implements IResultProcessor {
 				IBaseVO vo=this.voClass.newInstance();
 				for(int i=1;i<=rs.getMetaData().getColumnCount();i++){
 					String columnName=rs.getMetaData().getColumnName(i);
-					VOUtils.setValue(vo,columnName,rs.getObject(i));
+					VOUtils.setValue(vo,columnName,ConvertUtils.convertToVO(rs.getObject(i)));
 				}
 				list.add(vo);
 			}

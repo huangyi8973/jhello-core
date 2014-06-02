@@ -74,6 +74,35 @@ public class BaseDao {
 	}
 	
 	/**
+	 * 执行更新语句
+	 * 
+	 * @param sql
+	 * @param parameter
+	 * @return
+	 * @throws SQLException
+	 * @author huangy
+	 * @date 2013-4-6 下午10:27:47
+	 */
+	public int execInsertByAutoInCrementKey(final String sql,final SqlParameter parameters) throws SQLException {
+		Connection conn = getConnection();
+		PreparedStatement ps = conn.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
+		long lSpandTimeStart = 0l;
+		long lSpandTimeEnd = 0l;
+		lSpandTimeStart = System.currentTimeMillis();
+		for (int i = 0; i < parameters.size(); i++) {
+			ps.setObject(i + 1, parameters.get(i));
+		}
+		ps.execute();
+		ResultSet rs = ps.getGeneratedKeys();
+		int primaryKey = rs.getInt(1);
+		lSpandTimeEnd = System.currentTimeMillis();
+		log.debug(String.format("执行SQL : %s", sql));
+		close(conn, ps, null);
+		log.info(String.format("执行时间 : %dms", lSpandTimeEnd - lSpandTimeStart));
+		return primaryKey;
+	}
+	
+	/**
 	 * 执行有查询结果的SQL
 	 * @param sql
 	 * @param param
