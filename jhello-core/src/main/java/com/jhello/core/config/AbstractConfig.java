@@ -11,4 +11,6 @@ public abstract class AbstractConfig {
 	public abstract Properties getConfigProperties();
 	
 	public abstract ViewType getDefaultViewType();
+	
+	public abstract String getDateTimePattern();
 }

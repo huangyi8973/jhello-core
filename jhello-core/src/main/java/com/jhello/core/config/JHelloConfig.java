@@ -65,4 +65,8 @@ public class JHelloConfig{
 	public ViewType getDefaultViewType(){
 		return this.config.getDefaultViewType();
 	}
+	
+	public String getDateTimePattern(){
+		return this.config.getDateTimePattern();
+	}
 }

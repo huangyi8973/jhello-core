@@ -1,9 +1,12 @@
 package com.jhello.core.db.result;
 
+import java.lang.reflect.Field;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.jhello.core.db.convert.ConvertUtils;
 import com.jhello.core.vo.IBaseVO;
@@ -24,16 +27,28 @@ public class VOListResultProcessor implements IResultProcessor {
 	public List<IBaseVO> getResult(ResultSet rs) throws SQLException, InstantiationException, IllegalAccessException {
 		List<IBaseVO> list=new ArrayList<IBaseVO>();
 		if(rs!=null){
+			//获得字段与类型映射关系
+			Map<String,Class<?>> fieldAndClsMap = getFieldAndClsMap();
 			while(rs.next()){
 				IBaseVO vo=this.voClass.newInstance();
+				
 				for(int i=1;i<=rs.getMetaData().getColumnCount();i++){
 					String columnName=rs.getMetaData().getColumnName(i);
-					VOUtils.setValue(vo,columnName,ConvertUtils.convertToVO(rs.getObject(i)));
+					VOUtils.setValue(vo,columnName,ConvertUtils.convertToVO(rs.getObject(i),fieldAndClsMap.get(columnName)));
 				}
 				list.add(vo);
 			}
 		}
 		return list;
+	}
+
+	private Map<String, Class<?>> getFieldAndClsMap() {
+		Map<String,Class<?>> fieldAndClsMap = new HashMap<String,Class<?>>();
+		Field[]  fields = this.voClass.getDeclaredFields();
+		for(Field f : fields){
+			fieldAndClsMap.put(f.getName(), f.getType());
+		}
+		return fieldAndClsMap;
 	}
 
 }

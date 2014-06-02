@@ -52,4 +52,13 @@ public class DefaultConfig extends AbstractConfig {
 			return Enum.valueOf(ViewType.class, defaultViewType);
 		}
 	}
+
+	@Override
+	public String getDateTimePattern() {
+		String dateTimePattern = (String) this.configProperties.get(ConfigConst.COMMON_DATETIME_PATTERN);
+		if(StringUtils.isEmpty(dateTimePattern)){
+			return "yyyy-MM-dd HH:mm:ss";
+		}
+		return dateTimePattern;
+	}
 }
