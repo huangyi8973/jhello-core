@@ -1,4 +1,4 @@
-package com.jhello.core.db;
+package com.jhello.db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,8 +8,8 @@ import java.sql.SQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.jhello.core.db.result.IResultProcessor;
 import com.jhello.core.utils.MathUtils;
+import com.jhello.db.result.IResultProcessor;
 
 /**
  * 基本数据访问对象

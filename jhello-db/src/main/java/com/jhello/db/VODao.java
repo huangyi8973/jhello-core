@@ -1,4 +1,4 @@
-package com.jhello.core.db;
+package com.jhello.db;
 
 import java.lang.reflect.Array;
 import java.sql.Connection;
@@ -10,12 +10,12 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.jhello.core.db.convert.ConvertUtils;
-import com.jhello.core.db.result.ColumnListResultProcessor;
-import com.jhello.core.db.result.VOListResultProcessor;
 import com.jhello.core.vo.IBaseVO;
 import com.jhello.core.vo.PrimaryKeyStrategy;
 import com.jhello.core.vo.VOUtils;
+import com.jhello.db.convert.ConvertUtils;
+import com.jhello.db.result.ColumnListResultProcessor;
+import com.jhello.db.result.VOListResultProcessor;
 
 /**
  * VO型数据访问对象

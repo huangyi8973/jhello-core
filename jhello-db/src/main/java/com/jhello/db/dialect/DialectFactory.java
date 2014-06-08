@@ -1,4 +1,4 @@
-package com.jhello.core.db.dialect;
+package com.jhello.db.dialect;
 
 import com.jhello.core.config.ConfigConst;
 import com.jhello.core.config.JHelloConfig;

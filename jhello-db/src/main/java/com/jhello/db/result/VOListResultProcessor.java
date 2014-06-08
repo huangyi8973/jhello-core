@@ -1,4 +1,4 @@
-package com.jhello.core.db.result;
+package com.jhello.db.result;
 
 import java.lang.reflect.Field;
 import java.sql.ResultSet;
@@ -8,9 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.jhello.core.db.convert.ConvertUtils;
 import com.jhello.core.vo.IBaseVO;
 import com.jhello.core.vo.VOUtils;
+import com.jhello.db.convert.ConvertUtils;
 
 /**
  * 返回VO的集合

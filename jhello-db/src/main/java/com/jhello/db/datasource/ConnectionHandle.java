@@ -1,4 +1,4 @@
-package com.jhello.core.db.datasource;
+package com.jhello.db.datasource;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

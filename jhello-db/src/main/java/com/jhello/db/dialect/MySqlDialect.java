@@ -1,4 +1,4 @@
-package com.jhello.core.db.dialect;
+package com.jhello.db.dialect;
 
 import com.jhello.core.utils.StringUtils;
 import com.jhello.core.utils.Utils;

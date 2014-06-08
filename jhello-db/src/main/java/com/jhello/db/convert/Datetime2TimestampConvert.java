@@ -1,4 +1,4 @@
-package com.jhello.core.db.convert;
+package com.jhello.db.convert;
 
 import java.sql.Timestamp;
 

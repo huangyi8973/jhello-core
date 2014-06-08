@@ -1,6 +1,6 @@
-package com.jhello.core.db.dialect;
+package com.jhello.db.dialect;
 
-import com.jhello.core.db.SqlParameter;
+import com.jhello.db.SqlParameter;
 
 
 public abstract class AbstractDialect implements IDialect {

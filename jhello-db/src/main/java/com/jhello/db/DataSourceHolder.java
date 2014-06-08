@@ -1,4 +1,4 @@
-package com.jhello.core.db;
+package com.jhello.db;
 
 import javax.sql.DataSource;
 

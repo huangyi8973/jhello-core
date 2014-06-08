@@ -1,4 +1,4 @@
-package com.jhello.core.db.result;
+package com.jhello.db.result;
 
 import java.sql.ResultSet;
 
