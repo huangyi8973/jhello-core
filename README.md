@@ -1,4 +1,4 @@
 jhello-core
 ===========
 
-a simple full stack web framework
+a simple web mvc framework
