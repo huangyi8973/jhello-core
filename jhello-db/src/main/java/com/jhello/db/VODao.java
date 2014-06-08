@@ -10,12 +10,12 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.jhello.core.vo.IBaseVO;
-import com.jhello.core.vo.PrimaryKeyStrategy;
-import com.jhello.core.vo.VOUtils;
 import com.jhello.db.convert.ConvertUtils;
 import com.jhello.db.result.ColumnListResultProcessor;
 import com.jhello.db.result.VOListResultProcessor;
+import com.jhello.vo.IBaseVO;
+import com.jhello.vo.PrimaryKeyStrategy;
+import com.jhello.vo.VOUtils;
 
 /**
  * VO型数据访问对象

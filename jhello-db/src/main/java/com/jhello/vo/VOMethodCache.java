@@ -1,4 +1,4 @@
-package com.jhello.core.vo;
+package com.jhello.vo;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

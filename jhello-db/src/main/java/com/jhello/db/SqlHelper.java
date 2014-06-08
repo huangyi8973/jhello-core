@@ -1,8 +1,8 @@
 package com.jhello.db;
 
-import com.jhello.core.vo.IBaseVO;
 import com.jhello.db.dialect.DialectFactory;
 import com.jhello.db.dialect.IDialect;
+import com.jhello.vo.IBaseVO;
 
 
 public class SqlHelper {

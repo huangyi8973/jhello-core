@@ -1,4 +1,4 @@
-package com.jhello.core.vo;
+package com.jhello.vo;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package com.jhello.core.vo;
+package com.jhello.vo;
 
 public enum PrimaryKeyStrategy {
 	GENERATE,//使用内置的PrimaryKeyGenerater生成32位UUID

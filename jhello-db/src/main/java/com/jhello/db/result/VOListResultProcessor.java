@@ -8,9 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.jhello.core.vo.IBaseVO;
-import com.jhello.core.vo.VOUtils;
 import com.jhello.db.convert.ConvertUtils;
+import com.jhello.vo.IBaseVO;
+import com.jhello.vo.VOUtils;
 
 /**
  * 返回VO的集合
