@@ -15,12 +15,8 @@ import org.slf4j.LoggerFactory;
 import com.jhello.core.action.ActionMapper;
 import com.jhello.core.aspect.AdviceMapper;
 import com.jhello.core.config.AbstractConfig;
-import com.jhello.core.config.ConfigConst;
 import com.jhello.core.config.DefaultConfig;
 import com.jhello.core.config.JHelloConfig;
-import com.jhello.core.db.DataSourceHolder;
-import com.jhello.core.db.datasource.HelloDataSourceProvider;
-import com.jhello.core.db.datasource.IDataSourceProvider;
 import com.jhello.core.handle.Handler;
 import com.jhello.core.utils.StringUtils;
 import com.jhello.core.utils.Utils;
@@ -36,7 +32,7 @@ public class DispatchController extends HttpServlet {
 			initConfig();
 			initHandlesMapper();
 			initAspectMapper();
-			initDatabaseInfo();
+//			initDatabaseInfo();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -50,20 +46,20 @@ public class DispatchController extends HttpServlet {
 			JHelloConfig.getInstance().setConfig(new DefaultConfig());
 		}
 	}
-	private void initDatabaseInfo() throws Exception {
-		logger.info("init database info");
-		long start = System.currentTimeMillis();
-		String providerName = JHelloConfig.getInstance().getConfigValue(ConfigConst.DB_DATASOURCE_PROVIDER);
-		if(!StringUtils.isEmpty(providerName)){
-			IDataSourceProvider provider = (IDataSourceProvider) Thread.currentThread().getContextClassLoader().loadClass(providerName).newInstance();
-			DataSourceHolder.setDataSource(provider.getDataSource());
-		}else{
-			//默认用内置的数据库连接池
-			IDataSourceProvider provider = new HelloDataSourceProvider();
-			DataSourceHolder.setDataSource(provider.getDataSource());
-		}
-		logger.debug("init database info end, spend "+(System.currentTimeMillis() - start));
-	}
+//	private void initDatabaseInfo() throws Exception {
+//		logger.info("init database info");
+//		long start = System.currentTimeMillis();
+//		String providerName = JHelloConfig.getInstance().getConfigValue(ConfigConst.DB_DATASOURCE_PROVIDER);
+//		if(!StringUtils.isEmpty(providerName)){
+//			IDataSourceProvider provider = (IDataSourceProvider) Thread.currentThread().getContextClassLoader().loadClass(providerName).newInstance();
+//			DataSourceHolder.setDataSource(provider.getDataSource());
+//		}else{
+//			//默认用内置的数据库连接池
+//			IDataSourceProvider provider = new HelloDataSourceProvider();
+//			DataSourceHolder.setDataSource(provider.getDataSource());
+//		}
+//		logger.debug("init database info end, spend "+(System.currentTimeMillis() - start));
+//	}
 	private void initAspectMapper() throws Exception {
 		AdviceMapper.getInstance().init();
 	}
