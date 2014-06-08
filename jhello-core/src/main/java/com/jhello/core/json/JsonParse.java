@@ -1,19 +1,9 @@
 package com.jhello.core.json;
 
-import java.beans.BeanInfo;
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
 import java.lang.reflect.Array;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
-
-import com.jhello.core.vo.IBaseVO;
 
 /**
  * json解析器
@@ -29,7 +19,6 @@ public class JsonParse {
 	private String valueToJson(Object obj) throws Exception{
 		if(obj != null){
 			if(obj instanceof String){
-				//TODO 控制符怎么办 \n \r这类的
 				return "\""+(String) obj +"\"";
 			}else if(isNumbertValue(obj)){
 				return String.valueOf(obj);
@@ -41,8 +30,8 @@ public class JsonParse {
 				return mapToJson(obj);
 			}else if(obj instanceof Collection){
 				return collectionToJson(obj);
-			}else if(obj instanceof IBaseVO){
-				return objectToJson(obj);
+//			}else if(obj instanceof IBaseVO){
+//				return objectToJson(obj);
 			}else{
 				return "\""+obj.toString() +"\"";
 			}
@@ -119,25 +108,25 @@ public class JsonParse {
 		}
 		return false;
 	}
-
-	private String objectToJson(Object obj) throws Exception{
-		Map<String,Object> map = new HashMap<String, Object>();
-		Class<?> cls = obj.getClass();
-		Field[] fields = cls.getDeclaredFields();
-		Set<String> fieldsNameSet = new HashSet<String>();
-		for(Field f : fields){
-			fieldsNameSet.add(f.getName());
-		}
-		BeanInfo bi = Introspector.getBeanInfo(cls);
-		PropertyDescriptor[] pd = bi.getPropertyDescriptors();
-		for(PropertyDescriptor p : pd){
-			String attrName = p.getName();
-			if(fieldsNameSet.contains(attrName)){
-				Method readMethod = p.getReadMethod();
-				map.put(attrName, readMethod.invoke(obj));
-			}
-		}
-		return mapToJson(map);
-		
-	}
+//
+//	private String objectToJson(Object obj) throws Exception{
+//		Map<String,Object> map = new HashMap<String, Object>();
+//		Class<?> cls = obj.getClass();
+//		Field[] fields = cls.getDeclaredFields();
+//		Set<String> fieldsNameSet = new HashSet<String>();
+//		for(Field f : fields){
+//			fieldsNameSet.add(f.getName());
+//		}
+//		BeanInfo bi = Introspector.getBeanInfo(cls);
+//		PropertyDescriptor[] pd = bi.getPropertyDescriptors();
+//		for(PropertyDescriptor p : pd){
+//			String attrName = p.getName();
+//			if(fieldsNameSet.contains(attrName)){
+//				Method readMethod = p.getReadMethod();
+//				map.put(attrName, readMethod.invoke(obj));
+//			}
+//		}
+//		return mapToJson(map);
+//		
+//	}
 }
