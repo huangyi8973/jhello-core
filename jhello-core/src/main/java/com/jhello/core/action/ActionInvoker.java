@@ -9,6 +9,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jhello.core.config.JHelloConfig;
+
 public class ActionInvoker {
 
 	private Action action;
@@ -18,7 +20,7 @@ public class ActionInvoker {
 	}
 	
 	public Object invoke() throws Exception{
-		Object controller = action.getControllerCls().newInstance();
+		Object controller = JHelloConfig.getInstance().getActionProvider().getActionInstance(action);
 		Method method = action.getMethod();
 		//根据方法的参数类型塞入参数
 		Map<Class<?>,Object> paramMap = new HashMap<Class<?>,Object>();

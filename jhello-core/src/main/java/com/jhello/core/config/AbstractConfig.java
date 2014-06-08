@@ -2,6 +2,7 @@ package com.jhello.core.config;
 
 import java.util.Properties;
 
+import com.jhello.core.action.ActionProvider;
 import com.jhello.core.view.ViewType;
 
 public abstract class AbstractConfig {
@@ -13,4 +14,6 @@ public abstract class AbstractConfig {
 	public abstract ViewType getDefaultViewType();
 	
 	public abstract String getDateTimePattern();
+	
+	public abstract ActionProvider getActionProvider() throws Exception;
 }

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import com.jhello.core.action.ActionProvider;
+import com.jhello.core.action.DefaultActionProvider;
 import com.jhello.core.handle.ActionHandler;
 import com.jhello.core.handle.ExceptionHandler;
 import com.jhello.core.handle.ParamPrepareHandler;
@@ -61,4 +63,15 @@ public class DefaultConfig extends AbstractConfig {
 		}
 		return dateTimePattern;
 	}
+
+	@Override
+	public ActionProvider getActionProvider() throws Exception {
+		String actionProviderClassName = (String) this.configProperties.get(ConfigConst.WEB_ACTION_PROVIDER);
+		if(StringUtils.isEmpty(actionProviderClassName)){
+			return new DefaultActionProvider();
+		}
+		Class<?> cls = (Class<?>) Thread.currentThread().getContextClassLoader().loadClass(actionProviderClassName);
+		return (ActionProvider) cls.newInstance();
+	}
+
 }

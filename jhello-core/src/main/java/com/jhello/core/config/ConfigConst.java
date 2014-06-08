@@ -6,6 +6,7 @@ public class ConfigConst {
 	public final static String WEB_ACTION_SCAN_PACKAGE = "web.action_scan_packages";
 	public final static String WEB_ASPECT_SCAN_PACKAGE = "web.aspect_scan_packages";
 	public final static String WEB_DEFAULT_VIEW_TYPE = "web.default_view_type";
+	public final static String WEB_ACTION_PROVIDER = "web.action_provider";
 	
 	//common
 	public final static String COMMON_DATETIME_PATTERN="common.datetime_pattern";

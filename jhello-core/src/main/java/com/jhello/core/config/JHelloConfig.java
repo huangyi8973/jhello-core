@@ -1,8 +1,11 @@
 package com.jhello.core.config;
 
+import java.util.Properties;
+
+import com.jhello.core.action.ActionProvider;
 import com.jhello.core.view.ViewType;
 
-public class JHelloConfig{
+public final class JHelloConfig extends AbstractConfig{
 	
 	private AbstractConfig config;
 	private static JHelloConfig instance;
@@ -68,5 +71,15 @@ public class JHelloConfig{
 	
 	public String getDateTimePattern(){
 		return this.config.getDateTimePattern();
+	}
+
+	@Override
+	public Properties getConfigProperties() {
+		return null;
+	}
+
+	@Override
+	public ActionProvider getActionProvider() throws Exception {
+		return this.config.getActionProvider();
 	}
 }
